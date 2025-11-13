@@ -50,7 +50,7 @@ func TestCalculateMemoryReservation(t *testing.T) {
 		{"256Gi", 256 * Gi, Gi + 4*Gi/5 + 8*Gi/10 + 112*Gi/100*6 + 128*Gi/100*2},
 		{"18Gi", 18 * Gi, Gi + 4*Gi/5 + 8*Gi/10 + 2*Gi/100*6},
 		{"42Gi", 42 * Gi, Gi + 4*Gi/5 + 8*Gi/10 + 26*Gi/100*6},
-		{"1TiB", 1024 * Gi, Gi + 4*Gi/5 + 8*Gi/10 + 112*Gi/100*6 + 896*Gi/100*2},
+		{"1Ti", 1024 * Gi, Gi + 4*Gi/5 + 8*Gi/10 + 112*Gi/100*6 + 896*Gi/100*2},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
