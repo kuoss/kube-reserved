@@ -1,0 +1,27 @@
+name: pull-request
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  golangci-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+    - uses: actions/setup-go@v6
+      with:
+        go-version: stable
+    - name: golangci-lint
+      uses: golangci/golangci-lint-action@v8
+
+  go-test-coverage:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+    - uses: actions/setup-go@v6
+    - run: go test ./... -coverprofile=coverage.out
+    - uses: codecov/codecov-action@v5
+    - run: go install github.com/mattn/goveralls@latest
+    - run: goveralls -service=github -coverprofile=coverage.out
+      env:
+        COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
